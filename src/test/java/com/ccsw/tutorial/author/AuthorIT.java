@@ -12,6 +12,9 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.test.annotation.DirtiesContext;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -38,6 +41,9 @@ public class AuthorIT {
 
     ParameterizedTypeReference<ResponsePage<AuthorDto>> responseTypePage = new ParameterizedTypeReference<>() {
     };
+
+    ParameterizedTypeReference<List<AuthorDto>> responseTypeList = new ParameterizedTypeReference<List<AuthorDto>>(){};
+
 
     @Test
     public void findFirstPageWithFiveSizeShouldReturnFirstFiveResults() {
@@ -153,5 +159,12 @@ public class AuthorIT {
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
+    @Test
+    public void findAllShouldReturnAllAuthor() {
 
+        ResponseEntity<List<AuthorDto>> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.GET, null, responseTypeList);
+
+        assertNotNull(response);
+        assertEquals(TOTAL_AUTHORS, response.getBody().size());
+    }
 }

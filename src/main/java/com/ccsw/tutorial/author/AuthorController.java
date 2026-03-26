@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Tag(name = "Author", description = "API of Author")
@@ -40,6 +41,12 @@ public class AuthorController {
         return new PageImpl<>(page.getContent().stream().map(e -> mapper.map(e, AuthorDto.class)).collect(Collectors.toList()), page.getPageable(), page.getTotalElements());
     }
 
+    public List<AuthorDto> findAll() {
+
+        List<Author> authors = this.authorService.findAll();
+
+        return authors.stream().map(e -> mapper.map(e, AuthorDto.class)).collect(Collectors.toList());
+    }
     /**
      * Método para crear o actualizar un {@link Author}
      *
