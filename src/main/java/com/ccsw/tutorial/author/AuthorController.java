@@ -40,7 +40,9 @@ public class AuthorController {
 
         return new PageImpl<>(page.getContent().stream().map(e -> mapper.map(e, AuthorDto.class)).collect(Collectors.toList()), page.getPageable(), page.getTotalElements());
     }
-
+    
+    @Operation(summary = "Find", description = "Method that return a list of Authors")
+    @RequestMapping(path = "", method = RequestMethod.GET)
     public List<AuthorDto> findAll() {
 
         List<Author> authors = this.authorService.findAll();
