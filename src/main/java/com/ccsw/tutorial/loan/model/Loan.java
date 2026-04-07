@@ -15,11 +15,11 @@ public class Loan {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "game_id", nullable = false)
     private Game game;
 
@@ -71,12 +71,6 @@ public class Loan {
 
     @Override
     public String toString() {
-        return "Loan{" +
-                "id=" + id +
-                ", client=" + client +
-                ", game=" + game +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
+        return "Loan{" + "id=" + id + ", client=" + client + ", game=" + game + ", startDate=" + startDate + ", endDate=" + endDate + '}';
     }
 }
