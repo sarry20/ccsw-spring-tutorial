@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -39,8 +40,8 @@ public class LoanController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public Page<LoanDto> findPage(@RequestParam(value = "title", required = false) String title, @RequestParam(value = "client", required = false) String client, @RequestParam(value = "date", required = false) Date date,
-            @RequestBody LoanSearchDto dto) {
+    public Page<LoanDto> findPage(@RequestParam(value = "title", required = false) String title, @RequestParam(value = "client", required = false) String client,
+            @RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date date, @RequestBody LoanSearchDto dto) {
         Page<Loan> page = loanService.findPage(title, client, date, dto);
         return new PageImpl<>(page.getContent().stream().map(e -> mapper.map(e, LoanDto.class)).collect(Collectors.toList()), page.getPageable(), page.getTotalElements());
     }
