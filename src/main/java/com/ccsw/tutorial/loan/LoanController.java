@@ -46,7 +46,7 @@ public class LoanController {
     }
 
     @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)
-    public void save(@RequestParam(required = false) Long id, @RequestBody LoanDto dto) {
+    public void save(@PathVariable(required = false) Long id, @RequestBody LoanDto dto) {
         loanService.save(id, dto);
     }
 
