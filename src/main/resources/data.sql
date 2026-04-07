@@ -19,3 +19,10 @@ INSERT INTO game(title, age, category_id, author_id) VALUES ('Azul', '8', 3, 5);
 INSERT INTO client(name) VALUES ('Client 1');
 INSERT INTO client(name) VALUES ('Client 2');
 INSERT INTO client(name) VALUES ('Client 3');
+INSERT INTO client(name) VALUES ('Client 4');
+INSERT INTO client(name) VALUES ('Client 5');
+
+INSERT INTO loan(client_id, game_id, start_date,end_date) VALUES (1, 1, '2024-01-01', '2024-01-15');
+INSERT INTO loan(client_id, game_id, start_date,end_date) VALUES (2, 2, '2024-01-02', '2024-01-16');
+INSERT INTO loan(client_id, game_id, start_date,end_date) VALUES (3, 3, '2024-01-03', '2024-01-17');
+INSERT INTO loan(client_id, game_id, start_date,end_date) VALUES (4, 4, '2024-01-04', '2024-01-18');

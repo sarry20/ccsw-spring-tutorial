@@ -2,9 +2,7 @@ package com.ccsw.tutorial.game.model;
 
 import com.ccsw.tutorial.author.model.Author;
 import com.ccsw.tutorial.category.model.Category;
-
 import jakarta.persistence.*;
-
 
 @Entity
 @Table(name = "game")
@@ -109,4 +107,8 @@ public class Game {
         this.author = author;
     }
 
+    @Override
+    public String toString() {
+        return "Game{" + "id=" + id + ", title='" + title + '\'' + ", age='" + age + '\'' + ", category=" + category + ", author=" + author + '}';
+    }
 }
