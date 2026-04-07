@@ -39,12 +39,8 @@ public class LoanController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public Page<LoanDto> findPage(
-            @RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "client", required = false) String client,
-            @RequestParam(value = "date", required = false) Date date,
-            @RequestBody LoanSearchDto dto
-    ) {
+    public Page<LoanDto> findPage(@RequestParam(value = "title", required = false) String title, @RequestParam(value = "client", required = false) String client, @RequestParam(value = "date", required = false) Date date,
+            @RequestBody LoanSearchDto dto) {
         Page<Loan> page = loanService.findPage(title, client, date, dto);
         return new PageImpl<>(page.getContent().stream().map(e -> mapper.map(e, LoanDto.class)).collect(Collectors.toList()), page.getPageable(), page.getTotalElements());
     }
