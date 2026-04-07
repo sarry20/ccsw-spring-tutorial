@@ -35,7 +35,7 @@ public class ClientController {
      */
     @Operation(summary = "Save or Update Client", description = "Method that saves or updates a client")
     @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)
-    public void saveClient(@PathVariable(name = "id", required = false) Long id, @org.springframework.web.bind.annotation.RequestBody ClientDto clientDto) {
+    public void saveClient(@PathVariable(name = "id", required = false) Long id, @RequestBody ClientDto clientDto) {
         this.clientService.save(id, clientDto);
     }
 
