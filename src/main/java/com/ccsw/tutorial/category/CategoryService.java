@@ -5,7 +5,6 @@ import com.ccsw.tutorial.category.model.CategoryDto;
 
 import java.util.List;
 
-
 public interface CategoryService {
 
     /**

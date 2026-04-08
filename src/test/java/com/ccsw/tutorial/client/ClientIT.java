@@ -29,15 +29,12 @@ public class ClientIT {
     public static final String NEW_CLIENT_NAME = "Client 4";
     public static final Long MODIFY_CLIENT_ID = 3L;
     public static final Long DELETE_CLIENT_ID = 2L;
-
-    @LocalServerPort
-    private int port;
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
     ParameterizedTypeReference<List<ClientDto>> responseType = new ParameterizedTypeReference<>() {
     };
+    @LocalServerPort
+    private int port;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @Test
     public void findAllShouldReturnAllClients() {

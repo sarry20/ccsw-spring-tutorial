@@ -40,22 +40,15 @@ public class GameIT {
 
     private static final String TITLE_PARAM = "title";
     private static final String CATEGORY_ID_PARAM = "idCategory";
-
+    ParameterizedTypeReference<List<GameDto>> responseType = new ParameterizedTypeReference<>() {
+    };
     @LocalServerPort
     private int port;
-
     @Autowired
     private TestRestTemplate restTemplate;
 
-    ParameterizedTypeReference<List<GameDto>> responseType = new ParameterizedTypeReference<>() {
-    };
-
-    private String getUrlWithParams(){
-        return UriComponentsBuilder.fromHttpUrl(LOCALHOST + port + SERVICE_PATH)
-                .queryParam(TITLE_PARAM, "{" + TITLE_PARAM +"}")
-                .queryParam(CATEGORY_ID_PARAM, "{" + CATEGORY_ID_PARAM +"}")
-                .encode()
-                .toUriString();
+    private String getUrlWithParams() {
+        return UriComponentsBuilder.fromHttpUrl(LOCALHOST + port + SERVICE_PATH).queryParam(TITLE_PARAM, "{" + TITLE_PARAM + "}").queryParam(CATEGORY_ID_PARAM, "{" + CATEGORY_ID_PARAM + "}").encode().toUriString();
     }
 
     @Test

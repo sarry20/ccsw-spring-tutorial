@@ -1,6 +1,5 @@
 package com.ccsw.tutorial.category.model;
 
-
 import jakarta.persistence.*;
 
 /**

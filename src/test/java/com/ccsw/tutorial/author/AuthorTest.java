@@ -1,6 +1,5 @@
 package com.ccsw.tutorial.author;
 
-
 import com.ccsw.tutorial.author.model.Author;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

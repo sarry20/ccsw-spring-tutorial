@@ -10,7 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
@@ -32,18 +35,14 @@ public class AuthorIT {
 
     private static final int TOTAL_AUTHORS = 6;
     private static final int PAGE_SIZE = 5;
-
-    @LocalServerPort
-    private int port;
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
     ParameterizedTypeReference<ResponsePage<AuthorDto>> responseTypePage = new ParameterizedTypeReference<>() {
     };
-
-    ParameterizedTypeReference<List<AuthorDto>> responseTypeList = new ParameterizedTypeReference<List<AuthorDto>>(){};
-
+    ParameterizedTypeReference<List<AuthorDto>> responseTypeList = new ParameterizedTypeReference<List<AuthorDto>>() {
+    };
+    @LocalServerPort
+    private int port;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @Test
     public void findFirstPageWithFiveSizeShouldReturnFirstFiveResults() {
@@ -159,6 +158,7 @@ public class AuthorIT {
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
+
     @Test
     public void findAllShouldReturnAllAuthor() {
 

@@ -38,5 +38,4 @@ public class CategoryDto {
         this.name = name;
     }
 
-
 }

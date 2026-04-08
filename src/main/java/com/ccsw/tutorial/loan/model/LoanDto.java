@@ -1,8 +1,6 @@
 package com.ccsw.tutorial.loan.model;
 
-import com.ccsw.tutorial.client.model.Client;
 import com.ccsw.tutorial.client.model.ClientDto;
-import com.ccsw.tutorial.game.model.Game;
 import com.ccsw.tutorial.game.model.GameDto;
 
 import java.util.Date;

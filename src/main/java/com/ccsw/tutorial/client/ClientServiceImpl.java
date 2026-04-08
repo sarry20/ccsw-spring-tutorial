@@ -15,13 +15,13 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
-     /**
-      * {@inheritDoc}
-      */
-     @Override
-     public Client get(Long id) {
-         return this.clientRepository.findById(id).orElse(null);
-     }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Client get(Long id) {
+        return this.clientRepository.findById(id).orElse(null);
+    }
 
     /**
      * {@inheritDoc}
@@ -32,8 +32,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     /**
-    * {@inheritDoc}
-    */
+     * {@inheritDoc}
+     */
     @Override
     public void save(Long id, ClientDto data) {
         Client client;

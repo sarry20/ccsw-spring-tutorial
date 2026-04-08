@@ -1,13 +1,12 @@
 package com.ccsw.tutorial.category;
 
-import java.util.List;
-
 import com.ccsw.tutorial.category.model.Category;
+import com.ccsw.tutorial.category.model.CategoryDto;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ccsw.tutorial.category.model.CategoryDto;
+import java.util.List;
 
 @Service
 @Transactional
@@ -59,7 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(Long id) throws Exception {
 
-        if(this.get(id) == null){
+        if (this.get(id) == null) {
             throw new Exception("Not exists");
         }
 

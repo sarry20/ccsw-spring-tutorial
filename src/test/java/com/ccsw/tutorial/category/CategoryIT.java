@@ -28,16 +28,12 @@ public class CategoryIT {
     public static final String NEW_CATEGORY_NAME = "CAT4";
     public static final Long MODIFY_CATEGORY_ID = 3L;
     public static final Long DELETE_CATEGORY_ID = 2L;
-
-
-    @LocalServerPort
-    private int port;
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
     ParameterizedTypeReference<List<CategoryDto>> responseType = new ParameterizedTypeReference<>() {
     };
+    @LocalServerPort
+    private int port;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @Test
     public void findAllShouldReturnAllCategories() {

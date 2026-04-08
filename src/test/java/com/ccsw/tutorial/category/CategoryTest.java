@@ -1,6 +1,5 @@
 package com.ccsw.tutorial.category;
 
-
 import com.ccsw.tutorial.category.model.Category;
 import com.ccsw.tutorial.category.model.CategoryDto;
 import org.junit.jupiter.api.Test;
@@ -58,7 +57,6 @@ public class CategoryTest {
 
         assertEquals(CATEGORY_NAME, category.getValue().getName());
     }
-
 
     @Test
     public void saveExistsCategoryIdShouldUpdate() {

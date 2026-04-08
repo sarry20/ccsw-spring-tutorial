@@ -1,6 +1,5 @@
 package com.ccsw.tutorial.common.criteria;
 
-
 public class SearchCriteria {
 
     private String key;

@@ -16,7 +16,7 @@ public interface AuthorService {
      * @return {@link Author}
      */
     Author get(Long id);
-    
+
     /**
      * Recupera un listado de autores {@link Author}
      *

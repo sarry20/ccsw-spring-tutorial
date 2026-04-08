@@ -22,6 +22,7 @@ public class GameController {
 
     @Autowired
     ModelMapper mapper;
+
     /**
      * Método para recuperar una lista de {@link Game}
      *
@@ -31,8 +32,7 @@ public class GameController {
      */
     @Operation(summary = "Find", description = "Method that return a filtered list of Games")
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public List<GameDto> find(@RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "idCategory", required = false) Long idCategory) {
+    public List<GameDto> find(@RequestParam(value = "title", required = false) String title, @RequestParam(value = "idCategory", required = false) Long idCategory) {
 
         List<Game> games = gameService.find(title, idCategory);
 

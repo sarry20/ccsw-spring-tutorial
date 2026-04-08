@@ -58,7 +58,6 @@ public class ClientTest {
         assertEquals(CLIENT_NAME, clientCaptor.getValue().getName());
     }
 
-
     @Test
     public void saveExistsClientIdShouldUpdate() {
 

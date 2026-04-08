@@ -1,6 +1,5 @@
 package com.ccsw.tutorial.game;
 
-
 import com.ccsw.tutorial.author.AuthorService;
 import com.ccsw.tutorial.category.CategoryService;
 import com.ccsw.tutorial.common.criteria.SearchCriteria;
@@ -11,7 +10,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 
@@ -31,7 +29,6 @@ public class GameServiceImpl implements GameService {
 
     @Autowired
     CategoryService categoryService;
-
 
     /**
      * {@inheritDoc}

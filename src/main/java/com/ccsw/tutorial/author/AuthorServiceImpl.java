@@ -1,7 +1,5 @@
 package com.ccsw.tutorial.author;
 
-import org.springframework.stereotype.Service;
-
 import com.ccsw.tutorial.author.model.Author;
 import com.ccsw.tutorial.author.model.AuthorDto;
 import com.ccsw.tutorial.author.model.AuthorSearchDto;
@@ -9,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -71,7 +70,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void delete(Long id) throws Exception {
 
-        if(this.get(id) == null){
+        if (this.get(id) == null) {
             throw new Exception("Not exists");
         }
 

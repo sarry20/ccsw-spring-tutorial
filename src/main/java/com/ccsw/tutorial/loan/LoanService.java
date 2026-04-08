@@ -4,7 +4,6 @@ import com.ccsw.tutorial.loan.model.Loan;
 import com.ccsw.tutorial.loan.model.LoanDto;
 import com.ccsw.tutorial.loan.model.LoanSearchDto;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.Date;
 import java.util.List;
