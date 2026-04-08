@@ -3,6 +3,7 @@ package com.ccsw.tutorial.loan;
 import com.ccsw.tutorial.loan.model.Loan;
 import com.ccsw.tutorial.loan.model.LoanDto;
 import com.ccsw.tutorial.loan.model.LoanSearchDto;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +28,21 @@ public class LoanController {
     @Autowired
     private ModelMapper mapper;
 
+    @Operation(summary = "Get", description = "Method that return a Loan by id")
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public LoanDto get(@PathVariable Long id) {
         Loan loan = loanService.get(id);
         return mapper.map(loan, LoanDto.class);
     }
 
+    @Operation(summary = "Find All", description = "Method that return a list of all Loans")
     @RequestMapping(path = "", method = RequestMethod.GET)
     public List<LoanDto> findAll() {
         List<Loan> loans = loanService.findAll();
         return loans.stream().map(e -> mapper.map(e, LoanDto.class)).collect(Collectors.toList());
     }
 
+    @Operation(summary = "Find Page", description = "Method that return a filtered page of Loans")
     @RequestMapping(path = "", method = RequestMethod.POST)
     public Page<LoanDto> findPage(@RequestParam(value = "title", required = false) String title, @RequestParam(value = "client", required = false) String client,
             @RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date date, @RequestBody LoanSearchDto dto) {
@@ -46,11 +50,13 @@ public class LoanController {
         return new PageImpl<>(page.getContent().stream().map(e -> mapper.map(e, LoanDto.class)).collect(Collectors.toList()), page.getPageable(), page.getTotalElements());
     }
 
+    @Operation(summary = "Save or Update", description = "Method that saves or updates a Loan")
     @RequestMapping(path = { "", "/{id}" }, method = RequestMethod.PUT)
     public void save(@PathVariable(required = false) Long id, @RequestBody LoanDto dto) {
         loanService.save(id, dto);
     }
 
+    @Operation(summary = "Delete", description = "Method that deletes a Loan by id")
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
         loanService.delete(id);
