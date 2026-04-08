@@ -67,7 +67,12 @@ public class LoanServiceImpl implements LoanService {
         loan.setGame(this.gameService.get(dto.getGame().getId()));
         loan.setClient(this.clientService.get(dto.getClient().getId()));
 
-        // validations
+        validate(loan);
+
+        this.loanRepository.save(loan);
+    }
+
+    private void validate(Loan loan) {
         if (loan.getStartDate().after(loan.getEndDate())) {
             throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha de fin");
         }
@@ -77,9 +82,9 @@ public class LoanServiceImpl implements LoanService {
             throw new IllegalArgumentException("La duración del préstamo no puede ser superior a 14 días");
         }
 
-        LoanSpecification gameSpec = new LoanSpecification(new SearchCriteria("game.id", ":", dto.getGame().getId()));
-        LoanSpecification startDateSpec = new LoanSpecification(new SearchCriteria("startDate", "<=", dto.getEndDate()));
-        LoanSpecification endDateSpec = new LoanSpecification(new SearchCriteria("endDate", ">=", dto.getStartDate()));
+        LoanSpecification gameSpec = new LoanSpecification(new SearchCriteria("game.id", ":", loan.getGame().getId()));
+        LoanSpecification startDateSpec = new LoanSpecification(new SearchCriteria("startDate", "<=", loan.getEndDate()));
+        LoanSpecification endDateSpec = new LoanSpecification(new SearchCriteria("endDate", ">=", loan.getStartDate()));
         Specification<Loan> loanSpec = gameSpec.and(startDateSpec).and(endDateSpec);
 
         List<Loan> activeLoans = this.loanRepository.findAll(loanSpec);
@@ -88,15 +93,13 @@ public class LoanServiceImpl implements LoanService {
             throw new IllegalArgumentException("El juego ya está prestado en las fechas seleccionadas");
         }
 
-        LoanSpecification clientSpec = new LoanSpecification(new SearchCriteria("client.id", ":", dto.getClient().getId()));
+        LoanSpecification clientSpec = new LoanSpecification(new SearchCriteria("client.id", ":", loan.getClient().getId()));
         Specification<Loan> clientLoanSpec = clientSpec.and(startDateSpec).and(endDateSpec);
         List<Loan> clientActiveLoans = this.loanRepository.findAll(clientLoanSpec);
 
         if (!clientActiveLoans.isEmpty()) {
             throw new IllegalArgumentException("El cliente ya tiene un préstamo activo en las fechas seleccionadas");
         }
-
-        this.loanRepository.save(loan);
     }
 
     @Override
