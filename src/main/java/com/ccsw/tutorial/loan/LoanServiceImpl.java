@@ -109,8 +109,8 @@ public class LoanServiceImpl implements LoanService {
 
         List<Loan> clientActiveLoans = this.loanRepository.findAll(clientLoanSpec);
 
-        if (!clientActiveLoans.isEmpty()) {
-            throw new IllegalArgumentException("El cliente ya tiene un préstamo activo en las fechas seleccionadas");
+        if (clientActiveLoans.size() > 1) {
+            throw new IllegalArgumentException("El cliente ya tiene dos préstamos activos en las fechas seleccionadas");
         }
     }
 
