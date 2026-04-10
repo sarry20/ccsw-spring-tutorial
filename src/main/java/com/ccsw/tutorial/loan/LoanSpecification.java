@@ -33,6 +33,14 @@ public class LoanSpecification implements Specification<Loan> {
             return builder.equal(path, criteria.getValue());
         }
 
+        if ("!:".equals(op) && path.getJavaType() == String.class) {
+            return builder.notLike(path.as(String.class), "%" + criteria.getValue() + "%");
+        }
+
+        if ("!:".equals(op)) {
+            return builder.notEqual(path, criteria.getValue());
+        }
+
         if (">=".equals(op) && Date.class.isAssignableFrom(path.getJavaType())) {
             return builder.greaterThanOrEqualTo(path.as(Date.class), (Date) criteria.getValue());
         }

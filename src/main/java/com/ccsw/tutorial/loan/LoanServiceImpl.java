@@ -67,12 +67,12 @@ public class LoanServiceImpl implements LoanService {
         loan.setGame(this.gameService.get(dto.getGame().getId()));
         loan.setClient(this.clientService.get(dto.getClient().getId()));
 
-        validate(loan);
+        validate(loan, id != null);
 
         this.loanRepository.save(loan);
     }
 
-    private void validate(Loan loan) {
+    private void validate(Loan loan, boolean isEdit) {
         if (loan.getStartDate().after(loan.getEndDate())) {
             throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha de fin");
         }
@@ -82,19 +82,31 @@ public class LoanServiceImpl implements LoanService {
             throw new IllegalArgumentException("La duración del préstamo no puede ser superior a 14 días");
         }
 
-        LoanSpecification gameSpec = new LoanSpecification(new SearchCriteria("game.id", ":", loan.getGame().getId()));
         LoanSpecification startDateSpec = new LoanSpecification(new SearchCriteria("startDate", "<=", loan.getEndDate()));
         LoanSpecification endDateSpec = new LoanSpecification(new SearchCriteria("endDate", ">=", loan.getStartDate()));
-        Specification<Loan> loanSpec = gameSpec.and(startDateSpec).and(endDateSpec);
 
-        List<Loan> activeLoans = this.loanRepository.findAll(loanSpec);
+        LoanSpecification gameIdSpec = new LoanSpecification(new SearchCriteria("game.id", ":", loan.getGame().getId()));
+        Specification<Loan> gameLoanSpec = gameIdSpec.and(startDateSpec).and(endDateSpec);
+
+        if (isEdit) {
+            LoanSpecification idSpec = new LoanSpecification(new SearchCriteria("id", "!:", loan.getId()));
+            gameLoanSpec = gameLoanSpec.and(idSpec);
+        }
+
+        List<Loan> activeLoans = this.loanRepository.findAll(gameLoanSpec);
 
         if (!activeLoans.isEmpty()) {
             throw new IllegalArgumentException("El juego ya está prestado en las fechas seleccionadas");
         }
 
-        LoanSpecification clientSpec = new LoanSpecification(new SearchCriteria("client.id", ":", loan.getClient().getId()));
-        Specification<Loan> clientLoanSpec = clientSpec.and(startDateSpec).and(endDateSpec);
+        LoanSpecification clientIdSpec = new LoanSpecification(new SearchCriteria("client.id", ":", loan.getClient().getId()));
+        Specification<Loan> clientLoanSpec = clientIdSpec.and(startDateSpec).and(endDateSpec);
+
+        if (isEdit) {
+            LoanSpecification idSpec = new LoanSpecification(new SearchCriteria("id", "!:", loan.getId()));
+            clientLoanSpec = clientLoanSpec.and(idSpec);
+        }
+
         List<Loan> clientActiveLoans = this.loanRepository.findAll(clientLoanSpec);
 
         if (!clientActiveLoans.isEmpty()) {
